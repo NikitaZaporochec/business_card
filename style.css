@@ -1,0 +1,434 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #e74c3c;
+    --accent-color: #3498db;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --card-width: 450px;
+    --card-height: 270px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f9f9f9;
+    color: var(--dark-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.68,-0.55,0.27,1.55);
+}
+
+.container.visible {
+    opacity: 1;
+}
+
+.card {
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 2000px;
+    cursor: pointer;
+    opacity: 1;
+    transform: none;
+    animation: floatWithShadow 4s ease-in-out infinite;
+    position: relative;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 5%;
+    width: 90%;
+    height: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 50%;
+    filter: blur(10px);
+    z-index: 1;
+    animation: shadowPulse 4s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatWithShadow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes shadowPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(0.8);
+        opacity: 0.2;
+    }
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    z-index: 10;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+}
+
+.card-front {
+    background: var(--light-color);
+    color: var(--dark-color);
+}
+
+.card-back {
+    background: var(--primary-color);
+    color: var(--light-color);
+    transform: rotateY(180deg);
+    padding: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile-container {
+    width: 35%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image {
+    width: 120px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid var(--light-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: none;
+}
+
+.info-container {
+    width: 65%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    bottom: -5px;
+    left: 0;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    color: var(--secondary-color);
+}
+
+.tagline {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+    font-style: italic;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.contact-item svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    color: var(--accent-color);
+}
+
+.company-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.services h3 {
+    font-size: 15px;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.services ul {
+    list-style-type: none;
+}
+
+.services li {
+    font-size: 13px;
+    margin-bottom: 3px;
+    position: relative;
+    padding-left: 18px;
+}
+
+.services li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+.slogan {
+    text-align: center;
+    font-style: italic;
+    margin-top: 12px;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+@media (max-width: 480px) {
+    :root {
+        --card-width: 320px;
+        --card-height: 400px;
+    }
+    
+    .card-front {
+        flex-direction: column;
+    }
+    
+    .profile-container, .info-container {
+        width: 100%;
+    }
+    
+    .profile-container {
+        height: 40%;
+        padding: 20px 0;
+    }
+    
+    .info-container {
+        height: 60%;
+    }
+}
+
+/* Добавляем стили для языковых переключателей */
+.language-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 5px;
+    z-index: 100;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.lang-btn.active {
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
+}
+
+/* Стили для карточек на разных языках */
+.card {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100px);
+    transition: opacity 0.5s, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), visibility 0s 0.5s;
+}
+
+.card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition: opacity 0.5s, transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Swoosh эффект для переключения языков */
+.swoosh-in {
+    animation: swooshIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+.swoosh-out {
+    animation: swooshOut 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes swooshIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100px) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+@keyframes swooshOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-5deg);
+    }
+}
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #2c3e50 60%, #3498db 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: introFadeOut 1s 2.2s forwards;
+}
+
+.intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: introContentIn 1.2s 0.2s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;
+}
+
+.intro-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transform: translateY(40px) scale(0.9) skewY(8deg);
+    opacity: 0;
+    animation: logoSwooshIn 1s 0.4s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;
+}
+
+.intro-slogan {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 18px;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: sloganFadeIn 0.7s 1.1s ease-out forwards;
+}
+
+@keyframes introContentIn {
+    to { opacity: 1; }
+}
+
+@keyframes logoSwooshIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9) skewY(8deg);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.05) skewY(-2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) skewY(0);
+    }
+}
+
+@keyframes sloganFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes introFadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+} 
