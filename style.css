@@ -109,10 +109,13 @@ body {
     transform-style: preserve-3d;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    z-index: 10;
 }
 
 .card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card .card-inner.flipped {
     transform: rotateY(180deg);
 }
 
@@ -264,7 +267,7 @@ h2 {
 @media (max-width: 480px) {
     :root {
         --card-width: 320px;
-        --card-height: 400px;
+        --card-height: 450px;
     }
     
     .card-front {
@@ -278,10 +281,55 @@ h2 {
     .profile-container {
         height: 40%;
         padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .info-container {
         height: 60%;
+        padding: 15px;
+    }
+    
+    .profile-image {
+        width: 120px;
+        height: 150px;
+    }
+    
+    .language-toggle {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .lang-btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .flip-instruction {
+        position: absolute;
+        bottom: -30px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        opacity: 0.8;
+    }
+    
+    .intro-logo {
+        font-size: 2rem;
+    }
+    
+    .intro-slogan {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    :root {
+        --card-width: 400px;
+        --card-height: 260px;
     }
 }
 
@@ -431,4 +479,14 @@ h2 {
         visibility: hidden;
         pointer-events: none;
     }
+}
+
+/* Отключаем hover-эффект на мобильных устройствах */
+.mobile-device .card:hover .card-inner {
+    transform: none;
+}
+
+/* Включаем эффект переворота по клику только на мобильных */
+.mobile-device .card .card-inner.flipped {
+    transform: rotateY(180deg);
 } 

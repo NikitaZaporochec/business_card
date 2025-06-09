@@ -8,21 +8,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const langButtons = document.querySelectorAll('.lang-btn');
     const cardRu = document.querySelector('.card-ru');
     const cardEn = document.querySelector('.card-en');
+    const cardInners = document.querySelectorAll('.card-inner');
     
+    // Определение мобильного устройства
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Применяем разные стили в зависимости от устройства
+    if (isMobile) {
+        // Для мобильных: добавляем класс, отключающий hover-эффект
+        document.body.classList.add('mobile-device');
+        
+        const cardRu = document.querySelector('.card-ru');
+        const cardEn = document.querySelector('.card-en');
+        
+        // Добавляем русскую инструкцию
+        const instructionRu = document.createElement('div');
+        instructionRu.className = 'flip-instruction';
+        instructionRu.textContent = 'Нажмите, чтобы перевернуть карточку';
+        cardRu.appendChild(instructionRu);
+        
+        // Добавляем английскую инструкцию
+        const instructionEn = document.createElement('div');
+        instructionEn.className = 'flip-instruction';
+        instructionEn.textContent = 'Tap to flip the card';
+        cardEn.appendChild(instructionEn);
+        
+        // Обработчик клика для переворота карточки ТОЛЬКО для мобильных
+        cardInners.forEach(cardInner => {
+            const card = cardInner.closest('.card');
+            
+            card.addEventListener('click', function(e) {
+                // Проверяем, не был ли клик по кнопкам языка
+                if (!e.target.closest('.lang-btn')) {
+                    cardInner.classList.toggle('flipped');
+                    
+                    // Обновляем текст инструкции
+                    const instruction = this.querySelector('.flip-instruction');
+                    const isRussian = this.classList.contains('card-ru');
+                    
+                    if (cardInner.classList.contains('flipped')) {
+                        instruction.textContent = isRussian ? 'Нажмите, чтобы вернуться' : 'Tap to return';
+                    } else {
+                        instruction.textContent = isRussian ? 'Нажмите, чтобы перевернуть карточку' : 'Tap to flip the card';
+                    }
+                }
+            });
+        });
+    }
+    
+    // Обработчик переключения языков
     langButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             const lang = this.getAttribute('data-lang');
-            
-            // Активируем кнопку
             langButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
-            // Переключаем карточку с эффектом swoosh
             if (lang === 'ru') {
                 cardEn.classList.add('swoosh-out');
                 setTimeout(() => {
                     cardEn.classList.remove('active');
                     cardEn.classList.remove('swoosh-out');
+                    if (isMobile) {
+                        cardEn.querySelector('.card-inner').classList.remove('flipped');
+                    }
                     
                     cardRu.classList.add('active');
                     cardRu.classList.add('swoosh-in');
@@ -36,6 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     cardRu.classList.remove('active');
                     cardRu.classList.remove('swoosh-out');
+                    if (isMobile) {
+                        cardRu.querySelector('.card-inner').classList.remove('flipped');
+                    }
                     
                     cardEn.classList.add('active');
                     cardEn.classList.add('swoosh-in');
