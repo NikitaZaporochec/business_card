@@ -318,11 +318,38 @@ h2 {
     }
     
     .intro-logo {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
     }
     
     .intro-slogan {
-        font-size: 1rem;
+        font-size: 0.85rem;
+        margin-top: 12px;
+    }
+    
+    .portfolio-link {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .portfolio-link a {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .portfolio-link svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .github-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .github-btn svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -489,4 +516,111 @@ h2 {
 /* Включаем эффект переворота по клику только на мобильных */
 .mobile-device .card .card-inner.flipped {
     transform: rotateY(180deg);
+}
+
+/* Стиль для GitHub кнопки */
+.github-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.github-btn svg {
+    width: 22px;
+    height: 22px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.github-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.github-btn:hover svg {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* Стиль для секции "Мои работы" */
+.portfolio-link {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s, transform 0.3s ease;
+    transform: translateY(10px);
+    z-index: 90;
+    pointer-events: none;
+}
+
+.portfolio-link.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, visibility 0s, transform 0.3s ease;
+    pointer-events: auto;
+}
+
+.portfolio-link a {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.portfolio-link a:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.portfolio-link svg {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-link a:hover svg {
+    transform: rotate(90deg) translateX(3px);
+}
+
+/* Улучшаем адаптивность для разных размеров экрана */
+@media (max-width: 768px) {
+    .intro-logo {
+        font-size: 2.2rem;
+        letter-spacing: 1.5px;
+    }
+    
+    .intro-slogan {
+        font-size: 1rem;
+        margin-top: 15px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .intro-logo {
+        font-size: 1.5rem; /* Минимальный размер для самых маленьких телефонов */
+    }
+    
+    .intro-slogan {
+        font-size: 0.8rem;
+        margin-top: 10px;
+    }
 } 

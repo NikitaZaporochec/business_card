@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardRu = document.querySelector('.card-ru');
     const cardEn = document.querySelector('.card-en');
     const cardInners = document.querySelectorAll('.card-inner');
+    const portfolioRu = document.querySelector('.portfolio-ru');
+    const portfolioEn = document.querySelector('.portfolio-en');
     
     // Определение мобильного устройства
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -56,6 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // При загрузке показываем только русскую версию кнопки портфолио
+    portfolioRu.classList.add('active');
+    portfolioEn.classList.remove('active');
+    
     // Обработчик переключения языков
     langButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -63,7 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
             langButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
+            // Четко определяем видимость кнопок портфолио для каждого языка
             if (lang === 'ru') {
+                // Сначала скрываем английскую версию кнопки
+                portfolioEn.classList.remove('active');
+                
                 cardEn.classList.add('swoosh-out');
                 setTimeout(() => {
                     cardEn.classList.remove('active');
@@ -75,11 +85,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     cardRu.classList.add('active');
                     cardRu.classList.add('swoosh-in');
                     
+                    // Показываем русскую версию кнопки с небольшой задержкой
+                    setTimeout(() => {
+                        portfolioRu.classList.add('active');
+                    }, 300);
+                    
                     setTimeout(() => {
                         cardRu.classList.remove('swoosh-in');
                     }, 800);
                 }, 400);
             } else {
+                // Сначала скрываем русскую версию кнопки
+                portfolioRu.classList.remove('active');
+                
                 cardRu.classList.add('swoosh-out');
                 setTimeout(() => {
                     cardRu.classList.remove('active');
@@ -90,6 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     cardEn.classList.add('active');
                     cardEn.classList.add('swoosh-in');
+                    
+                    // Показываем английскую версию кнопки с небольшой задержкой
+                    setTimeout(() => {
+                        portfolioEn.classList.add('active');
+                    }, 300);
                     
                     setTimeout(() => {
                         cardEn.classList.remove('swoosh-in');
@@ -115,5 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         intro.style.pointerEvents = 'none';
         container.classList.add('visible');
+        
+        // Показываем русскую кнопку портфолио с задержкой
+        setTimeout(() => {
+            portfolioRu.classList.add('active');
+        }, 1000);
     }, 2200);
 }); 
